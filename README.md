@@ -11,5 +11,9 @@ this is a mule application created for cloudhub 2.0 deployment poc
 
 >mvn clean deploy -DmuleDeploy
 
+target - Cloudhub-US-East-2  (US East Ohio)
+clientId- 55e16c9614154393940396fb3553a223
+clientSecret - 4E204c1fA768441bA6899C887977043e
+
 #Reference
 https://docs.mulesoft.com/mule-runtime/4.4/deploy-to-cloudhub-2

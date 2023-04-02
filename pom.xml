@@ -33,10 +33,14 @@
 					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
-						<environment>sandbox</environment>
+						<environment>Sandbox</environment>
 						<target>Cloudhub-US-East-2</target>
 						<muleVersion>4.4.0</muleVersion>
+						<server>Repository</server>
 						<applicationName>${project.artifactId}</applicationName>
+						<!-- <connectedAppClientId>YOURCLIENTID</connectedAppClientId> this can be used to publish api on exchange using connected app
+						<connectedAppClientSecret>YOURCLIENTSECRET</connectedAppClientSecret>  in this scenario we will use it from .m2 config settings.xml
+						<connectedAppGrantType>client_credentials</connectedAppGrantType> -->
 						<replicas>1</replicas>
 						<vCores>0.5</vCores>
 					</cloudhub2Deployment>
@@ -48,7 +52,7 @@
 		<repository>
 			<id>Repository</id>
 			<name>Corporate Repository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/9b33ea8c-cd7c-414d-8d2c-bdc3ce408cfd/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
@@ -92,12 +96,10 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepositories>
 			<pluginRepository>
 				<id>mule-public</id>
 				<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
 			</pluginRepository>
-		</pluginRepositories>
 	</pluginRepositories>
 
 </project>
