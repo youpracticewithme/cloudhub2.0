@@ -9,6 +9,12 @@ this is a mule application created for cloudhub 2.0 deployment poc
 
 #How to Deploy to Cloudhub
 
+first publish your api on exchange which is mandate for clouhub 2.0 deployment
+
+>mvn clean deploy
+
+now,once asset is published on exchage we can deploy this on cloudhub 2.0
+
 >mvn clean deploy -DmuleDeploy
 
 target - Cloudhub-US-East-2  (US East Ohio)
