@@ -3,18 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>9b33ea8c-cd7c-414d-8d2c-bdc3ce408cfd</groupId>
+	<groupId>${anypoint.organizationId}</groupId>	<!-- this must be your organization UUID-->
 	<artifactId>cloudhub2-demo-api</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
+	<!-- this version will drive asset version to be development state or stable state -->
 	<packaging>mule-application</packaging>
-
+	<description>This is mule demo api for cloudhub 2.0 deployment </description>
 	<name>cloudhub2-demo-api</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<app.runtime>4.4.0-20220221</app.runtime>
+		<anypoint.organizationId>9b33ea8c-cd7c-414d-8d2c-bdc3ce408cfd</anypoint.organizationId>
+		<anypoint.environment>Sandbox</anypoint.environment>
+		<anypoint.targetRegion>Cloudhub-US-East-2</anypoint.targetRegion>
+		<app.runtime>4.4.0</app.runtime>
+		<app.replicas>1</app.replicas>
+		<app.vcores>0.5</app.vcores>
 	</properties>
 
 	<build>
@@ -33,26 +38,44 @@
 					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
-						<environment>Sandbox</environment>
-						<target>Cloudhub-US-East-2</target>
-						<muleVersion>4.4.0</muleVersion>
-						<server>Repository</server>
+						<environment>${anypoint.environment}</environment>
+						<target>${anypoint.targetRegion}</target>
+						<muleVersion>${app.runtime}</muleVersion>
+						<server>anypoint-exchange-v3</server>
 						<applicationName>${project.artifactId}</applicationName>
 						<!-- <connectedAppClientId>YOURCLIENTID</connectedAppClientId> this can be used to publish api on exchange using connected app
-						<connectedAppClientSecret>YOURCLIENTSECRET</connectedAppClientSecret>  in this scenario we will use it from .m2 config settings.xml
+						<connectedAppClientSecret>YOURCLIENTSECRET</connectedAppClientSecret>  in this template we will use it from .m2 config settings.xml
 						<connectedAppGrantType>client_credentials</connectedAppGrantType> -->
-						<replicas>1</replicas>
-						<vCores>0.5</vCores>
+						<replicas>${app.replicas}</replicas>
+						<version>${project.version}</version>
+						<vCores>${app.vcores}</vCores>
+						<properties>							<!--application level set key value properties-->
+							<http.port>8081</http.port>
+						</properties>
+						<secureProperties>							<!--encrypt values before storing them-->
+							<amq.queue.pass>ajbfosneor</amq.queue.pass>
+						</secureProperties>
+						<!-- deployment level settings-->
+						<integrations>
+							<services>
+								<objectStoreV2>
+									<enabled>true</enabled>
+								</objectStoreV2>
+							</services>
+						</integrations>
+
 					</cloudhub2Deployment>
+					<classifier>mule-application</classifier>					<!-- this must be present to mark it as a mule application e.g. set 
+					<classifier> as mule-application (default), mule-application-template, mule-application-example, or mule-policy.-->
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<distributionManagement>
 		<repository>
-			<id>Repository</id>
+			<id>anypoint-exchange-v3</id>			<!-- same server name mentione in .m2 and cloudhub deployment plugin config-->
 			<name>Corporate Repository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/9b33ea8c-cd7c-414d-8d2c-bdc3ce408cfd/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${anypoint.organizationId}/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
@@ -96,10 +119,10 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-			<pluginRepository>
-				<id>mule-public</id>
-				<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
-			</pluginRepository>
+		<pluginRepository>
+			<id>mule-public</id>
+			<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+		</pluginRepository>
 	</pluginRepositories>
 
 </project>
