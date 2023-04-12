@@ -53,3 +53,16 @@ jobs:
       #push maven artifact to anypoint exchange
       - name: Upload artifact to exchange
         run: mvn clean -B deploy --file pom.xml
+  
+  
+  #lets deploy this artefact on cloudhub 2.0 anypoint runtimemanager
+  deploy:
+    needs: build
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to cloudHub2.0
+        run: mvn clean deploy -DmuleDeploy --file pom.xml
+      
+      
