@@ -81,6 +81,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
             
+      # setup maven credentials for server
+      - name: Add Server Connected App credentials on maven settings
+        uses: s4u/maven-settings-action@v2.8.0
+        with:
+          servers: |
+            [{
+              "id": "anypoint-exchange-v3",
+              "username": "~~~Client~~~",
+              "password": "55e16c9614154393940396fb3553a223~?~4E204c1fA768441bA6899C887977043e"
+            }]
+            
       #print maven settings to confirm changes
       - name: Print effective-settings (confirm step)
         run: mvn help:effective-settings
