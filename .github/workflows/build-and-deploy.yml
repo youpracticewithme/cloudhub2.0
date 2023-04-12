@@ -63,6 +63,6 @@ jobs:
     
     steps:
       - name: Deploy to cloudHub2.0
-        run: mvn clean deploy -DmuleDeploy --file pom.xml
+        run: mvn clean deploy -DmuleDeploy
       
       
