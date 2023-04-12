@@ -49,3 +49,7 @@ jobs:
       #build artifact  
       - name: Build with Maven
         run: mvn clean -B package --file pom.xml
+        
+      #push maven artifact to anypoint exchange
+      - name: Upload artifact to exchange
+        run: mvn clean -B deploy --file pom.xml
