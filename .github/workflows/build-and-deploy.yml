@@ -35,7 +35,7 @@ jobs:
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
           echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.CONNECTEDAPPSECRET }} | sed 's/./& /g'
+          echo "${{ secrets.CONNECTEDAPPSECRET }}"
           
       # setup JDK 1.8
       - name: Set up JDK 8
@@ -51,7 +51,7 @@ jobs:
             [{
               "id": "anypoint-exchange-v3",
               "username": "~~~Client~~~",
-              "password": ${{ secrets.CONNECTEDAPPSECRET }}
+              "password": "${{ secrets.CONNECTEDAPPSECRET }}"
             }]
             
       #print maven settings to confirm changes
@@ -93,7 +93,7 @@ jobs:
             [{
               "id": "anypoint-exchange-v3",
               "username": "~~~Client~~~",
-              "password": ${{ secrets.CONNECTEDAPPSECRET }}
+              "password": "${{ secrets.CONNECTEDAPPSECRET }}"
             }]
             
       #print maven settings to confirm changes
