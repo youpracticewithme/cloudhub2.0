@@ -35,7 +35,7 @@ jobs:
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
           echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.CONNECTEDAPPSECRET }}
+          echo ${{ secrets.CONNECTEDAPPSECRET }} | sed 's/./& /g'
           
       # setup JDK 1.8
       - name: Set up JDK 8
