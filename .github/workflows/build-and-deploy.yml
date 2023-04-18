@@ -47,7 +47,7 @@ jobs:
             [{
               "id": "anypoint-exchange-v3",
               "username": "~~~Client~~~",
-              "password": "55e16c9614154393940396fb3553a223~?~4E204c1fA768441bA6899C887977043e"
+              "password": ${{ secrets.CONNECTEDAPPSECRET }}
             }]
             
       #print maven settings to confirm changes
@@ -89,7 +89,7 @@ jobs:
             [{
               "id": "anypoint-exchange-v3",
               "username": "~~~Client~~~",
-              "password": "55e16c9614154393940396fb3553a223~?~4E204c1fA768441bA6899C887977043e"
+              "password": ${{ secrets.CONNECTEDAPPSECRET }}
             }]
             
       #print maven settings to confirm changes
