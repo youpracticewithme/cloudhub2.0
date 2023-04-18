@@ -32,7 +32,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      
+      - name: Step 1 - Echo out a GitHub Actions Secret to the logs
+        run: |
+          echo "The GitHub Action Secret will be masked:  "
+          echo ${{ secrets.CONNECTEDAPPSECRET }}
+          
       # setup JDK 1.8
       - name: Set up JDK 8
         uses: actions/setup-java@v1
