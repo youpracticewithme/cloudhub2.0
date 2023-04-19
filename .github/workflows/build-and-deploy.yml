@@ -108,6 +108,6 @@ jobs:
         
       - name: Deploy to cloudHub2.0
         run: |
-          mvn clean deploy -DmuleDeploy -Denv=dev -DencKey=AEsKeySotken1242
+          mvn clean deploy -DmuleDeploy -Denv=dev -DencKey=${{ secrets.ENCKEY }}
       
       
