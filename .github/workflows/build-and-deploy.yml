@@ -107,6 +107,6 @@ jobs:
         run: mvn help:effective-settings
         
       - name: Deploy to cloudHub2.0
-        run: mvn clean deploy -DmuleDeploy -Denv=$ENV -DencKey=$ENCKEY
+        run: mvn clean deploy -DmuleDeploy -Denv=${{ ENV }} -DencKey="${{ secrets.ENCKEY }}"
       
       
