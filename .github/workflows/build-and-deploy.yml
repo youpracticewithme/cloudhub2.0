@@ -38,6 +38,11 @@ jobs:
           echo "The GitHub Action Secret will be masked:  "
           echo "${{ secrets.CONNECTEDAPPSECRET }}"
           
+      - name: Step 2 - Echo out a GitHub Actions Secret to the logs
+        run: |
+          echo "The GitHub Action Secret will be masked for enckey and env:  "
+          echo "$ENCKEY" 
+          
       # setup JDK 1.8
       - name: Set up JDK 8
         uses: actions/setup-java@v1
