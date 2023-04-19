@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>${anypoint.organizationId}</groupId>	<!-- this must be your organization UUID-->
+	<groupId>${anypoint.organizationId}</groupId>
+	<!-- this must be your organization UUID-->
 	<artifactId>cloudhub2-demo-api</artifactId>
+	<!-- this will drive application name on cloudhub 2.0-->
 	<version>1.0.0-SNAPSHOT</version>
 	<!-- this version will drive asset version to be development state or stable state -->
 	<packaging>mule-application</packaging>
@@ -32,7 +33,7 @@
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
-				<version>3.7.1</version>
+				<version>3.8.1</version>
 				<extensions>true</extensions>
 				<configuration>
 					<cloudhub2Deployment>
@@ -49,11 +50,15 @@
 						<replicas>${app.replicas}</replicas>
 						<version>${project.version}</version>
 						<vCores>${app.vcores}</vCores>
-						<properties>							<!--application level set key value properties-->
+						<properties>
+							<!--application level set key value properties-->
 							<http.port>8081</http.port>
+							<env>${env}</env> <!-- set these variables on command line -->
 						</properties>
-						<secureProperties>							<!--encrypt values before storing them-->
+						<secureProperties>
+							<!--encrypt values before storing them-->
 							<amq.queue.pass>ajbfosneor</amq.queue.pass>
+							<encKey>${encKey}</encKey> <!-- set these variables on command line -->
 						</secureProperties>
 						<!-- deployment level settings-->
 						<integrations>
@@ -65,7 +70,8 @@
 						</integrations>
 
 					</cloudhub2Deployment>
-					<classifier>mule-application</classifier>					<!-- this must be present to mark it as a mule application e.g. set 
+					<classifier>mule-application</classifier>
+					<!-- this must be present to mark it as a mule application e.g. set 
 					<classifier> as mule-application (default), mule-application-template, mule-application-example, or mule-policy.-->
 				</configuration>
 			</plugin>
@@ -73,7 +79,8 @@
 	</build>
 	<distributionManagement>
 		<repository>
-			<id>anypoint-exchange-v3</id>			<!-- same server name mentione in .m2 and cloudhub deployment plugin config-->
+			<id>anypoint-exchange-v3</id>
+			<!-- same server name mentione in .m2 and cloudhub deployment plugin config-->
 			<name>Corporate Repository</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${anypoint.organizationId}/maven</url>
 			<layout>default</layout>
