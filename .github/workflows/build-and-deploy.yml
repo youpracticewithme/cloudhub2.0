@@ -109,7 +109,6 @@ jobs:
       - name: Deploy to cloudHub2.0
         env:
           eKey: ${{ secrets.ENCKEY }}
-          
         run: |
           echo "key for secret is $eKey or ${{ eKey }}"
           mvn clean deploy -DmuleDeploy -Denv=${{ ENV }} -DencKey=$eKey
