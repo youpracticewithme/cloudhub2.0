@@ -1,0 +1,7 @@
+http:
+  port: "8081"
+
+cloudhub:
+  version: "![LT+zEpNnHUFUBV75YySYUw==]"
+
+#key for this is AEsKeySotken1242
