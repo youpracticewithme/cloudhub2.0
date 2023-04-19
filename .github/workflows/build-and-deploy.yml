@@ -65,7 +65,7 @@ jobs:
         
       #push maven artifact to anypoint exchange
       - name: Upload artifact to exchange
-        run: mvn clean -B deploy --file pom.xml -Denv=dev -DencKey=AEsKeySotken1242
+        run: mvn clean -B deploy --file pom.xml
   
   
   #lets deploy this artefact on cloudhub 2.0 anypoint runtimemanager
@@ -102,6 +102,6 @@ jobs:
         run: mvn help:effective-settings
         
       - name: Deploy to cloudHub2.0
-        run: mvn clean deploy -DmuleDeploy -Denv=dev -DencKey=AEsKeySotken1242
+        run: mvn clean deploy -DmuleDeploy -Denv=$ENV -DencKey=$ENCKEY
       
       
