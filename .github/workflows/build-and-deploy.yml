@@ -37,10 +37,12 @@ jobs:
         run: |
           echo "The GitHub Action Secret will be masked:  "
           echo "${{ secrets.CONNECTEDAPPSECRET }}"
+          echo "${{ secrets.ENCKEY }}"
+          echo "${{ ENV }}"
           
       - name: Step 2 - Echo out a GitHub Actions Secret to the logs
         run: |
-          echo "The GitHub Action Secret will be masked for enckey and env:  "
+          echo "The GitHub Action Secret will be masked for enckey and env: $ENV  "
           echo "$ENCKEY" 
           
       # setup JDK 1.8
