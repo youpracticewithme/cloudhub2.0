@@ -1,26 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7489378d-da1f-4833-acf4-bf25cfff6e65" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
+	<global-property doc:name="Global Property"
+		doc:id="24103b02-cc17-4444-8e0d-214072e75aca" name="env" value="local" />
+	<configuration-properties
+		doc:name="environmenal-properties"
+		doc:id="39358297-e5d3-4e3d-9d3c-1e247ded0134"
+		file="configs/local.yaml" />
+	<global-property doc:name="Global Property"
+		doc:id="33bff223-05d9-4f66-ba7c-4990959a844c" name="encKey"
+		value="${encKey}" />
+	<secure-properties:config
+		name="secure-properties-config" doc:name="Secure Properties Config"
+		doc:id="9ab92174-9b48-4cf9-9c12-af077a45b5c3"
+		file="configs/${env}.yaml" key="${encKey}" />
+
+
+	<http:listener-config name="HTTP_Listener_config"
+		doc:name="HTTP Listener config"
+		doc:id="7489378d-da1f-4833-acf4-bf25cfff6e65">
+		<http:listener-connection host="0.0.0.0"
+			port="${http.port}" />
 	</http:listener-config>
-	<flow name="cloudhub2-demo-apiFlow" doc:id="74c23e26-c0f5-42ae-bef3-10ffee95de36" >
-		<http:listener doc:name="Listener" doc:id="5ffba615-a968-4fd4-8398-59217426595e" config-ref="HTTP_Listener_config" path="/api/demo"/>
-		<logger level="INFO" doc:name="Logger" doc:id="904f7d1a-45bf-431c-9792-750ee13212a5" message="Request Start Info Logger - #[message]"/>
-		<ee:transform doc:name="Transform Message" doc:id="61fb7c30-b140-4d7e-8c39-26787e56568e" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+
+
+	<flow name="cloudhub2-demo-apiFlow"
+		doc:id="74c23e26-c0f5-42ae-bef3-10ffee95de36">
+		<http:listener doc:name="Listener"
+			doc:id="5ffba615-a968-4fd4-8398-59217426595e"
+			config-ref="HTTP_Listener_config" path="/api/demo" />
+		<logger level="INFO" doc:name="Logger"
+			doc:id="904f7d1a-45bf-431c-9792-750ee13212a5"
+			message="Request Start Info Logger - #[message]" />
+
+		<ee:transform doc:name="Transform Message"
+			doc:id="96ff6dc8-67c7-4e13-a09b-dd0a5f784ff2">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
-	"message": "welcome to cloudhub 2.0 world !!"
+	"message": "welcome to " ++ p('secure::cloudhub.version')
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="854782e1-1cdc-4b2e-8d85-3aa99a9c7698" message="Demo api logging end - #[message] and payload is #[payload]"/>
+		<logger level="INFO" doc:name="Logger"
+			doc:id="854782e1-1cdc-4b2e-8d85-3aa99a9c7698"
+			message="Demo api logging end - #[message] and payload is #[payload]" />
 	</flow>
 </mule>
