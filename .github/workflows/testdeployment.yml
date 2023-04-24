@@ -13,6 +13,7 @@ jobs:
   #lets deploy this artefact on cloudhub 2.0 anypoint runtimemanager
   deploy:
     runs-on: ubuntu-latest
+    environment: test
     
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
